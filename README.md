@@ -30,7 +30,7 @@ For the cases "0, 1, 2, 3, 4, 5, 6, and 7 eggs", 2000 images of resolution 256x2
 See the data_generation folder for *.blend file (Blender 2.92) and python script. Because of storage limitations, the images are not included in the repo but can be generated again with Blender.
 
 ### Network architecture
-A simple network (input resolution 64x64 rgb) with two convolutional layers (4 and 8 filters with kernel size) and two dense layers (16 and 8 neurons, starting from a 2048 flattened layer) was chosen, starting with a more complex network and then manually simplyfing it until it was lightweight and still showed acceptable performance. For the classification, the activation function of the output layer was a `softmax` and `None` for the regression.
+A simple network (input resolution 64x64 rgb) with two convolutional layers (4 and 8 filters with kernel size 5) and two dense layers (16 and 8 neurons, starting from a 2048-sized flattened layer) was chosen, starting with a more complex network and then manually simplyfing it until it was lightweight and still showed acceptable performance. For the classification, the activation function of the output layer was a `softmax` and `None` for the regression.
 
 ### Training
 The cases "0, 1, 2, 3, 4, 6, and 7 eggs" were used for training with 0.2 validation split. Training was performed in 5 epochs with the `adam` optimizer,  `categorical_crossentropy` loss for the classification (final accuary approximately 95 %), and `mse` loss for the regression (went down to approximately 0.3). It took few minutes on a gaming laptop. The images with "5 eggs" were kept separate for the testing whose results are described above.
