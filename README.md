@@ -1,24 +1,24 @@
 # Number of Easter eggs, by classification or regression?
 Finding and counting eggs hidden in the grass is a simple scenario where we might want to teach the AI how to "count". The idea is to present pictures showing a known number of eggs to a Artificial Neural Net and then to hope that the output will be correct even for a picture with a number of eggs that the Net has never seen before.
 
-![](./figures/motivation.jpg)
+![](https://github.com/lightning485/osterai/blob/main/figures/motivation.jpg)
 
 ## How it does not work right away
 Usually, in classification problems the output of the classifying Net is written in "one-hot encoding" with a vector of the same length as the number of classes. This makes sense, because usually different classes are not in an ordered relation to each other, and maybe one object can belong to several classes. However, in the egg counting example, this leads to a Net that can't decide whether 5 eggs are 4 or 6 eggs. Since it has never seen an example of class 5 and because the way the output is represented does not motivate "interpolation" between the separate classes, this was not the approach to learn counting right away.
 
-![](./figures/outcome_classification.jpg)
+![](https://github.com/lightning485/osterai/blob/main/figures/outcome_classification.jpg)
 
-![](./figures/score_heatmap_unknown_data.jpg)
+![](https://github.com/lightning485/osterai/blob/main/figures/score_heatmap_unknown_data.jpg)
 
 ## How it does work
 If the egg counting problem is formulated as a regression problem, the Net comes up with the answer "5" (after rounding 4.971472) even though it has never seen a picture with 5 eggs during the training phase. I assume that the model learns the density of eggs in the image rather than a hard count. The difference to the classification formulation is that the output is seen more like a single variable which can be interpolated.
 
-![](./figures/outcome_regression.jpg)
-![](./figures/histogram_unknown_data.jpg)
+![](https://github.com/lightning485/osterai/blob/main/figures/outcome_regression.jpg)
+![](https://github.com/lightning485/osterai/blob/main/figures/histogram_unknown_data.jpg)
 
 When looking at the outputs of the whole training data, one sees the tendency of the Net not to output sharp integers, but to scatter around them. This was not forbidden by the architecture, as it was set up for continous regression, but it is disencouraged in the training because the ground truth is integer-valued. The correct "counting" seems to become the more difficult the more eggs are present in the images.
 
-![](./figures/histogram_known_data.jpg)
+![](https://github.com/lightning485/osterai/blob/main/figures/histogram_known_data.jpg)
 
 ## Technical Details
 
